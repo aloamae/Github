@@ -1,0 +1,125 @@
+openapi: 3.1.0
+info:
+  title: Sites de Recettes
+  description: Liste de sites web proposant des recettes selon le mode de cuisson
+    (robot-cuiseur, plancha, four ,).
+  license:
+    name: CC BY-SA 4.0
+    url: https://creativecommons.org/licenses/by-sa/4.0/
+  version: 1.0.0
+servers:
+- url: https://exemple.api/recettes
+paths:
+  /recettes/robot-cuiseur:
+    get:
+      tags:
+      - robot-cuiseur
+      summary: Sites proposant des recettes pour robot-cuiseur
+      operationId: getRobotCuiseurSites
+      responses:
+        '200':
+          description: Liste des sites
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SiteRecette'
+              example:
+              - numero: 1
+                nom: Naturamix
+                url: https://www.naturamix.fr/recette/?_appareil=robot-cuiseur
+                particularites: Recettes pour robot-cuiseur, navigation par appareil,
+                  plats, desserts, sauces, etc.
+              - numero: 2
+                nom: Seb
+                url: https://www.seb.fr/recette/liste?q=%3A%3Aproduct%3AAutocuiseurs%3Aproduct%3ACuisson+vapeur%3A&SearchQuery=&text=
+                particularites: Recettes pour autocuiseurs et cuisson vapeur, navigation
+                  par type de plat et appareil Seb.
+              - numero: 3
+                nom: Chef Cuisto
+                url: https://chefcuisto.com/cuisine/dossier/autocuiseur/
+                particularites: Recettes faciles pour autocuiseur (Instant Pot, Cookeo…),
+                  plats du quotidien, desserts, etc.
+  /recettes/plancha:
+    get:
+      tags:
+      - plancha
+      summary: Sites proposant des recettes à la plancha
+      operationId: getPlanchaSites
+      responses:
+        '200':
+          description: Liste des sites
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SiteRecette'
+              example:
+              - numero: 1
+                nom: Plancha ENO
+                url: https://www.plancha-eno.ca/CA/fr/recettes
+                particularites: 'Recettes faciles et originales à la plancha : viandes,
+                  poissons, légumes, desserts, burgers, apéros.'
+              - numero: 2
+                nom: Elle à Table
+                url: https://www.elle.fr/Elle-a-Table/Fiches-cuisine/Tous-les-themes/Cuisine-a-la-plancha
+                particularites: 'Recettes bluffantes, économiques et variées : gambas
+                  au pastis, poisson entier, brochettes, légumes, fruits.'
+              - numero: 3
+                nom: Krampouz
+                url: https://www.krampouz.com/recettes/idees-recettes-plancha/
+                particularites: Idées de plats originaux (paella, côte de bœuf, seiches
+                  farcies), conseils de cuisson, sauces maison.
+  /recettes/four:
+    get:
+      tags:
+      - four
+      summary: Sites proposant des recettes à cuire au four
+      operationId: getFourSites
+      responses:
+        '200':
+          description: Liste des sites
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SiteRecette'
+              example:
+              - numero: 1
+                nom: Migusto (Migros)
+                url: https://migusto.migros.ch/fr/apercu-des-recettes/aufour-platprincipal
+                particularites: 'Recettes variées et créatives de plats principaux
+                  au four : tartes, tourtes, gratins, viandes, légumes.'
+              - numero: 2
+                nom: Zeste
+                url: https://www.zeste.ca/articles/top-recettes-preferees-a-cuire-au-four
+                particularites: 'Sélection de plats originaux à cuire au four : fricassée
+                  de saucisses, courge spaghetti Alfredo, feta rôtie, gratins, conseils
+                  de chef.'
+              - numero: 3
+                nom: Supertoinette
+                url: https://www.supertoinette.com/diaporama/135/cuisson-au-four-25-recettes-faciles-a-preparer
+                particularites: '25 recettes faciles et originales pour plats complets
+                  au four : parmentier, rôti, gratin, tourte, croque-monsieur.'
+components:
+  schemas:
+    SiteRecette:
+      type: object
+      properties:
+        numero:
+          type: integer
+        nom:
+          type: string
+        url:
+          type: string
+          format: uri
+        particularites:
+          type: string
+      required:
+      - numero
+      - nom
+      - url
+      - particularites
